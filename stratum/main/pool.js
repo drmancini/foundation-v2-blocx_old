@@ -92,9 +92,7 @@ const Pool = function(config, configMain, callback) {
 
   // Check if Submitted Block was Accepted
   this.checkAccepted = function(daemon, hash, callback) {
-    console.log(hash)
     daemon.sendCommands([['getblock', [hash]]], false, (results) => {
-      console.log(results)
       const blocks = results.filter((result) => {
         return result.response && result.response.hash === hash && result.response.confirmations >= 0;
       });
@@ -485,7 +483,7 @@ const Pool = function(config, configMain, callback) {
         generate = _this.handleValidation(block, current, sending);
         Object.keys(generate).forEach((address) => {
 
-           // Updates
+          // Updates
           if (address in updates) updates[address].generate += generate[address];
           else updates[address] = { immature: 0, generate: generate[address] };
           if (block.previous === 'immature') updates[address].immature -= generate[address];
