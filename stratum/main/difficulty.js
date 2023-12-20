@@ -10,17 +10,12 @@ const Difficulty = function(config) {
   this.clients = {};
 
   // Difficulty Variables
-  this.maxSize = 60 / _this.config.targetTime * 360;
+  this.maxSize = 60 / _this.config.targetTime * 60;
   this.maxBoundary = 1 + _this.config.variance;
   this.minBoundary = 1 - _this.config.variance;
 
-  // this.maxSize = _this.config.retargetTime / _this.config.targetTime * 4;
-  // this.minTime = _this.config.targetTime * (1 + _this.config.variance);
-  // this.maxTime = _this.config.targetTime * (1 - _this.config.variance);
-
   // Difficulty Saved Values
   this.lastRetargetTime = null;
-  // this.lastSavedTime = null;
 
   // Check Difficulty for Updates
   this.checkDifficulty = function(client) {
@@ -100,19 +95,8 @@ const Difficulty = function(config) {
     // Update Current Time/Values
     const curTime = (Date.now() / 1000) | 0;
 
-    // if (!(Object.keys(_this.clients).includes(client.id))) _this.clients[client.id] = [];
-    // if (!_this.lastRetargetTime) {
-    //   _this.lastRetargetTime = curTime - _this.config.retargetTime / 2;
-    //   _this.lastSavedTime = curTime;
-    //   return;
-    // }
-
     // Append New Value to Queue
     const queue = _this.clients[client.id];
-    // if (queue.length >= _this.maxSize) queue.shift();
-    // queue.push(curTime - _this.lastSavedTime);
-    // _this.clients[client.id] = queue;
-    // _this.lastSavedTime = curTime;
     queue.difficulties.push(client.difficulty);
     queue.timestamps.push(curTime);
     if (queue.difficulties.length > _this.maxSize) {
@@ -122,14 +106,9 @@ const Difficulty = function(config) {
 
     // Calculate Difference Between Desired vs. Average Time
     if (curTime - _this.lastRetargetTime < _this.config.retargetTime) return;
-    // const updatedDifficulty = this.checkDifficulty(client);
     const diffCorrection = _this.getDiffCorrection(client);
 
     // Difficulty Will Be Updated
-    // if (updatedDifficulty !== null) {
-    //   const newDifference = parseFloat((client.difficulty * updatedDifficulty).toFixed(8));
-    //   _this.emit('client.difficulty.new', client, newDifference);
-    // }
     if (diffCorrection != null && (diffCorrection > _this.maxBoundary || diffCorrection < _this.minBoundary)) {
       const newDifficulty = client.difficulty * diffCorrection;
       _this.emit('client.difficulty.new', client, newDifficulty);
