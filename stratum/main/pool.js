@@ -186,7 +186,7 @@ const Pool = function(config, configMain, callback) {
         // Validate Shares for Workers w/ 51% Time
         let shares = worker.work;
         const timePeriod = utils.roundTo(worker.times / maxTime, 2);
-        if (timePeriod < 0.51) {
+        if (_this.config.primary.payments.enablePPLNT && timePeriod < 0.51) {
           const lost = shares * (1 - timePeriod);
           shares = utils.roundTo(Math.max(shares - lost, 0), 2);
         }
