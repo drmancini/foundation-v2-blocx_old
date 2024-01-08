@@ -4,10 +4,10 @@ const events = require('events');
 ////////////////////////////////////////////////////////////////////////////////
 
 // Main Daemon Function
-const Daemon = function(configMain, daemons) {
+const Daemon = function(config, daemons) {
 
   const _this = this;
-  this.configMain = configMain;
+  this.config = config;
   this.daemons = daemons;
 
   // Daemon Variables
@@ -16,7 +16,7 @@ const Daemon = function(configMain, daemons) {
 
   // Handle Setting Up Daemon Instances
   this.checkInstances = function(callback) {
-    _this.interface = new Interface(_this.configMain, daemons);
+    _this.interface = new Interface(_this.config, daemons);
     _this.interface.once('online', () => callback(false, null));
     _this.interface.on('failed', () => callback(true, null));
     _this.interface.checkInitialized();

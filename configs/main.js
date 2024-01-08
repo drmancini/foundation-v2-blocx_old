@@ -10,7 +10,7 @@
 // Miscellaneous Configuration
 const config = {};
 config.language = 'english';
-config.identifier = 'blocx';
+config.identifier = '';
 
 // Logger Configuration
 config.logger = {};

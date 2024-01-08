@@ -5,10 +5,10 @@ const async = require('async');
 ////////////////////////////////////////////////////////////////////////////////
 
 // Main Interface Function
-const Interface = function(configMain, daemons) {
+const Interface = function(config, daemons) {
 
   const _this = this;
-  this.configMain = configMain;
+  this.config = config;
   this.instances = daemons;
   this.instances.forEach((daemon, idx) => daemon.index = idx);
 
@@ -109,7 +109,7 @@ const Interface = function(configMain, daemons) {
 
     // HTTP Timeout Handling
     req.on('socket', (socket) => {
-      socket.setTimeout(this.configMain.settings.timeout.daemon || 3000);
+      socket.setTimeout(_this.config.settings.timeout.daemon || 3000);
       socket.on('timeout', () => {
         req.abort();
       });
