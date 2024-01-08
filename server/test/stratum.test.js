@@ -5,8 +5,8 @@ const configMain = require('../../configs/main.js');
 const nock = require('nock');
 const testdata = require('../../daemon/test/daemon.mock');
 
-config.primary.address = 'XbtkVnc9XRLhxfmafNkafderCWSsXYZJaM';
-config.primary.recipients[0].address = 'XbtkVnc9XRLhxfmafNkafderCWSsXYZJaM';
+config.primary.address = 'BGkj3a9tswe8AWGzqvxbwEGn8e1SGGme65';
+config.primary.recipients[0].address = 'BGkj3a9tswe8AWGzqvxbwEGn8e1SGGme65';
 config.primary.daemons = [{
   'host': '127.0.0.1',
   'port': '9998',
@@ -62,7 +62,7 @@ describe('Test stratum functionality', () => {
       }));
     nock('http://127.0.0.1:9998')
       .post('/').reply(200, JSON.stringify([
-        { id: 'nocktest', error: null, result: { isvalid: true, address: 'XbtkVnc9XRLhxfmafNkafderCWSsXYZJaM' }},
+        { id: 'nocktest', error: null, result: { isvalid: true, address: 'BGkj3a9tswe8AWGzqvxbwEGn8e1SGGme65' }},
         { id: 'nocktest', error: null, result: { networkhashps: 0 }},
         { id: 'nocktest', error: null, result: { chain: 'main', difficulty: 0 }},
         { id: 'nocktest', error: null, result: { protocolversion: 1, connections: 1 }},
@@ -103,7 +103,7 @@ describe('Test stratum functionality', () => {
       }));
     nock('http://127.0.0.1:9998')
       .post('/').reply(200, JSON.stringify([
-        { id: 'nocktest', error: null, result: { isvalid: true, address: 'XbtkVnc9XRLhxfmafNkafderCWSsXYZJaM' }},
+        { id: 'nocktest', error: null, result: { isvalid: true, address: 'BGkj3a9tswe8AWGzqvxbwEGn8e1SGGme65' }},
         { id: 'nocktest', error: null, result: { networkhashps: 0 }},
         { id: 'nocktest', error: null, result: { chain: 'main', difficulty: 0 }},
         { id: 'nocktest', error: null, result: { protocolversion: 1, connections: 1 }},

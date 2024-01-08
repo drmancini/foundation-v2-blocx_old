@@ -22,6 +22,7 @@ config.settings.banning.purgeInterval = 300000; // ms;
 // Timeout Configuration
 config.settings.timeout = {};
 config.settings.timeout.connection = 600000; // ms
+config.settings.timeout.daemon = 3000; // ms
 config.settings.timeout.rebroadcast = 60000; // ms
 
 // Interval Configuration

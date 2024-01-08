@@ -1063,8 +1063,8 @@ const Pool = function(config, configMain, callback) {
       [_this.config.primary.payments.daemon] : [];
 
     // Build Daemon Instances
-    _this.primary.daemon = new Daemon(primaryDaemons);
-    _this.primary.payments.daemon = new Daemon(primaryPaymentDaemon);
+    _this.primary.daemon = new Daemon(this.configMain, primaryDaemons);
+    _this.primary.payments.daemon = new Daemon(this.configMain, primaryPaymentDaemon);
 
     // Initialize Primary Daemons and Load Settings
     _this.primary.daemon.checkInstances((error) => {
@@ -1093,8 +1093,8 @@ const Pool = function(config, configMain, callback) {
       [_this.config.auxiliary.payments.daemon] : [];
 
     // Build Daemon Instances
-    _this.auxiliary.daemon = new Daemon(auxiliaryDaemons);
-    _this.auxiliary.payments.daemon = new Daemon(auxiliaryPaymentDaemon);
+    _this.auxiliary.daemon = new Daemon(this.configMain, auxiliaryDaemons);
+    _this.auxiliary.payments.daemon = new Daemon(this.configMain, auxiliaryPaymentDaemon);
 
     // Initialize Auxiliary Daemons and Load Settings
     if (_this.auxiliary.enabled) {

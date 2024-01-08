@@ -1,5 +1,6 @@
 const MockDate = require('mockdate');
 const Daemon = require('../main/daemon');
+const configMain = require('../../configs/main.js');
 const nock = require('nock');
 
 const daemons = [{
@@ -28,8 +29,9 @@ nock.enableNetConnect('127.0.0.1');
 
 describe('Test daemon functionality', () => {
 
-  let daemonsCopy, multiDaemonsCopy;
+  let configMainCopy, daemonsCopy, multiDaemonsCopy;
   beforeEach(() => {
+    configMainCopy = JSON.parse(JSON.stringify(configMain));
     daemonsCopy = JSON.parse(JSON.stringify(daemons));
     multiDaemonsCopy = JSON.parse(JSON.stringify(multiDaemons));
   });
@@ -49,7 +51,7 @@ describe('Test daemon functionality', () => {
         result: null,
         instance: 'nocktest',
       }));
-    const daemon = new Daemon(daemonsCopy);
+    const daemon = new Daemon(configMainCopy, daemonsCopy);
     daemon.checkInstances((error, response) => {
       expect(error).toBe(false);
       expect(response).toBe(null);
@@ -72,7 +74,7 @@ describe('Test daemon functionality', () => {
         result: null,
         instance: 'nocktest',
       }));
-    const multiDaemon = new Daemon(multiDaemonsCopy);
+    const multiDaemon = new Daemon(configMainCopy, multiDaemonsCopy);
     multiDaemon.checkInstances((error, response) => {
       expect(error).toBe(false);
       expect(response).toBe(null);
@@ -88,7 +90,7 @@ describe('Test daemon functionality', () => {
         result: null,
         instance: 'nocktest',
       }));
-    const daemon = new Daemon(daemonsCopy);
+    const daemon = new Daemon(configMainCopy, daemonsCopy);
     daemon.checkInstances((error, response) => {
       expect(error).toBe(true);
       expect(response).toBe(null);
@@ -112,7 +114,7 @@ describe('Test daemon functionality', () => {
         result: null,
         instance: 'nocktest',
       }));
-    const daemon = new Daemon(daemonsCopy);
+    const daemon = new Daemon(configMainCopy, daemonsCopy);
     const requests = [['getblocktemplate', []]];
     const expected = [{'data': '{"error":null,"result":null,"instance":"nocktest"}', 'error': null, 'instance': { 'host': '127.0.0.1', 'port': '9998', 'username': 'foundation', 'password': 'foundation', 'index': 0 }, 'response': null}];
     daemon.checkInstances(() => {
@@ -139,7 +141,7 @@ describe('Test daemon functionality', () => {
         result: null,
         instance: 'nocktest',
       }));
-    const daemon = new Daemon(daemonsCopy);
+    const daemon = new Daemon(configMainCopy, daemonsCopy);
     const requests = [['getblocktemplate', []]];
     const expected = [{'data': '{"error":null,"result":null,"instance":"nocktest"}', 'error': null, 'instance': { 'host': '127.0.0.1', 'port': '9998', 'username': 'foundation', 'password': 'foundation', 'index': 0 }, 'response': null}];
     daemon.checkInstances(() => {
@@ -151,7 +153,7 @@ describe('Test daemon functionality', () => {
   });
 
   test('Test daemon commands [3]', (done) => {
-    const daemon = new Daemon([]);
+    const daemon = new Daemon(configMainCopy, []);
     const requests = [['getblocktemplate', []]];
     daemon.checkInstances(() => {
       daemon.sendCommands(requests, false, (response) => {

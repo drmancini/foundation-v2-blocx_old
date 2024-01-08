@@ -40,7 +40,7 @@ exports.getBlockTemplate = function() {
     'height': 742780,
     'masternode': [
       {
-        'payee': 'XbtkVnc9XRLhxfmafNkafderCWSsXYZJaM',
+        'payee': 'BGkj3a9tswe8AWGzqvxbwEGn8e1SGGme65',
         'script': '76a9141ec5c66e9789c655ae068d35088b4073345fe0b088ac',
         'amount': 1080885569
       }
